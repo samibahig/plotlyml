@@ -95,10 +95,12 @@ layout = dmc.Stack(
     Output("disagreement-graph", "figure"),
     Input("threshold", "value"),
     Input("samples", "value"),
+    Input("theme-toggle", "computedColorScheme"),
 )
-def update_graph(threshold, samples):
+def update_graph(threshold, samples, theme):
 
     xs, ys, preds_list = generate_disagreement_data(samples)
+    template = "plotly_dark" if theme == "dark" else "plotly_white"
 
     return model_disagreement(
         xs,
@@ -108,4 +110,5 @@ def update_graph(threshold, samples):
         x_label="UMAP Dim 1",
         y_label="UMAP Dim 2",
         title="Ensemble Disagreement Map",
+        template=template
     )
