@@ -117,14 +117,17 @@ layout = dmc.Stack(
     Input("std-scale", "value"),
     Input("threshold", "value"),
     Input("samples", "value"),
+    Input("theme-toggle", "computedColorScheme"),
 )
-def update_graph(mean_shift, std_scale, threshold, samples):
+def update_graph(mean_shift, std_scale, threshold, samples, theme):
 
     ref = generate_samples(0, 1, samples)
     cur = generate_samples(mean_shift, std_scale, samples)
+    template = "plotly_dark" if theme == "dark" else "plotly_white"
 
     return distribution_drift(
         ref,
         cur,
         divergence_threshold=threshold,
+        template=template,
     )

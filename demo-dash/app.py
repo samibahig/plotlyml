@@ -15,6 +15,7 @@ theme_toggle = dmc.ColorSchemeToggle(
     darkIcon=DashIconify(icon="radix-icons:moon", width=20),
     color="yellow",
     size="lg",
+    id="theme-toggle",
 )
 
 header = dmc.AppShellHeader(

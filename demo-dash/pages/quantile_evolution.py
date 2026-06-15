@@ -96,8 +96,9 @@ layout = dmc.Stack(
     Input("show-mean", "checked"),
     Input("show-inner", "checked"),
     Input("weeks", "value"),
+    Input("theme-toggle", "computedColorScheme"),
 )
-def update_graph(show_mean, show_inner, weeks):
+def update_graph(show_mean, show_inner, weeks, theme):
     (
         timestamps,
         p10s,
@@ -107,6 +108,7 @@ def update_graph(show_mean, show_inner, weeks):
         p90s,
         means,
     ) = generate_quantile_data(weeks)
+    template = "plotly_dark" if theme == "dark" else "plotly_white"
 
     return quantile_evolution(
         timestamps,
@@ -119,4 +121,5 @@ def update_graph(show_mean, show_inner, weeks):
         show_mean=show_mean,
         y_label="Metric Value",
         title="Metric Quantile Evolution",
+        template=template
     )
